@@ -5,18 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="25ce3d1a0123461c8124ec7bf23ec7aa" Name="Diagram1">
-        <EntityTypeShape EntityType="ClothersForHandDBModel.Material" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClothersForHandDBModel.MaterialType" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClothersForHandDBModel.PossibleSupliersMaterial" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClothersForHandDBModel.Suplier" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClothersForHandDBModel.SuplierType" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClothersForHandDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ClothersForHandDBModel.UnitMeasure" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
-        <AssociationConnector Association="ClothersForHandDBModel.FK_Material_MaterialType" ManuallyRouted="false" />
-        <AssociationConnector Association="ClothersForHandDBModel.FK_Material_UnitMeasure" ManuallyRouted="false" />
-        <AssociationConnector Association="ClothersForHandDBModel.FK_PossibleSupliersMaterial_Material" ManuallyRouted="false" />
-        <AssociationConnector Association="ClothersForHandDBModel.FK_PossibleSupliersMaterial_Suplier" ManuallyRouted="false" />
-        <AssociationConnector Association="ClothersForHandDBModel.FK_Suplier_SuplierType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.Material" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.MaterialsChangeHistory" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.MaterialType" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.PossibleSupliersMaterial" Width="1.5" PointX="5.25" PointY="1.75" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.Suplier" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.SuplierType" Width="1.5" PointX="0.75" PointY="9" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ClothersForHandDBModel.UnitMeasure" Width="1.5" PointX="0.75" PointY="6" />
+        <AssociationConnector Association="ClothersForHandDBModel.FK_Material_MaterialType" />
+        <AssociationConnector Association="ClothersForHandDBModel.FK_Material_UnitMeasure" />
+        <AssociationConnector Association="ClothersForHandDBModel.FK_PossibleSupliersMaterial_Material" />
+        <AssociationConnector Association="ClothersForHandDBModel.FK_PossibleSupliersMaterial_Suplier" />
+        <AssociationConnector Association="ClothersForHandDBModel.FK_Suplier_SuplierType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

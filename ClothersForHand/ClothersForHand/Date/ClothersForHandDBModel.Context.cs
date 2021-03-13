@@ -26,6 +26,7 @@ namespace ClothersForHand.Date
         }
     
         public virtual DbSet<Material> Material { get; set; }
+        public virtual DbSet<MaterialsChangeHistory> MaterialsChangeHistory { get; set; }
         public virtual DbSet<MaterialType> MaterialType { get; set; }
         public virtual DbSet<PossibleSupliersMaterial> PossibleSupliersMaterial { get; set; }
         public virtual DbSet<Suplier> Suplier { get; set; }

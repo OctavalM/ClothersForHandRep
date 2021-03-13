@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClothersForHand"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Одежда для ручек" 
+        Height="520" 
+		MinHeight="520"
+        Width="800"
+		MinWidth="800">
+
     <Grid>
-        
-    </Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="65" />
+			<RowDefinition />
+			<RowDefinition Height="25" />
+		</Grid.RowDefinitions>
+
+		<Grid>
+			<StackPanel Orientation="Horizontal">
+				<Image Source="Images/logo.png" 
+				       Margin="10" />
+
+				<TextBlock Text="Одежда для ручек" 
+				           FontSize="16" 
+						   FontWeight="Bold"/>
+			</StackPanel>
+
+			<Button x:Name="BackBtn" 
+			        Content="Назад" 
+					Width="130" 
+					Height="30" 
+					Margin="0,0,10,0" 
+					HorizontalAlignment="Right" 
+					Click="BackBtn_Click" />
+		</Grid>
+
+		<Grid Grid.Row="1" 
+              Background="#B3F4E9" />
+
+		<Frame x:Name="MainFrame" 
+		       Grid.Row="1" 
+			   NavigationUIVisibility="Hidden" 
+			   ContentRendered="MainFrame_ContentRendered" />
+	</Grid>
 </Window>

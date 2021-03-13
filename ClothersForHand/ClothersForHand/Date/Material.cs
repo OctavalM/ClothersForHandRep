@@ -22,7 +22,7 @@ namespace ClothersForHand.Date
     
         public int MaterialID { get; set; }
         public string MaterialName { get; set; }
-        public Nullable<int> MaterialTypeID { get; set; }
+        public int MaterialTypeID { get; set; }
         public string Img { get; set; }
         public byte[] Image { get; set; }
         public decimal Cost { get; set; }

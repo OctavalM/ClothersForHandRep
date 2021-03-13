@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -90,10 +93,14 @@
     <Compile Include="Date\Material.cs">
       <DependentUpon>ClothersForHandDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Date\MaterialsChangeHistory.cs">
+      <DependentUpon>ClothersForHandDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Date\MaterialType.cs">
       <DependentUpon>ClothersForHandDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Date\Partials\ClothersForHandDBEntities.cs" />
+    <Compile Include="Date\Partials\Material.cs" />
     <Compile Include="Date\PossibleSupliersMaterial.cs">
       <DependentUpon>ClothersForHandDBModel.tt</DependentUpon>
     </Compile>
@@ -113,8 +120,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\MaterialsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\MaterialsPage.xaml.cs">
+      <DependentUpon>MaterialsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -148,9 +162,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Date\ClothersForHandDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -162,6 +174,8 @@
       <DependentUpon>ClothersForHandDBModel.edmx</DependentUpon>
       <LastGenOutput>ClothersForHandDBModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\icon.ico" />
+    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

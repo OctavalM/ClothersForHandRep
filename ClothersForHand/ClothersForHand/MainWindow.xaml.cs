@@ -1,4 +1,5 @@
 ﻿using ClothersForHand.Date;
+using ClothersForHand.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,20 +25,21 @@ namespace ClothersForHand
 		public MainWindow()
 		{
 			InitializeComponent();
+			MainFrame.Navigate(new MaterialsPage());
 		}
 
-		private void Window_Loaded(object sender, RoutedEventArgs e)
+		private void BackBtn_Click(object sender, RoutedEventArgs e)
 		{
-			var materialsList = ClothersForHandDBEntities.GetContext().Material.Where(x => x.Img != null).ToList();
+			if (MainFrame.Navigate(new MaterialsPage()))
+				MainFrame.Navigate(new MaterialsPage());
+		}
 
-			foreach (var material in materialsList)
-			{
-				var m = ClothersForHandDBEntities.GetContext().Material.Where(x => x.MaterialID == material.MaterialID).Single();
-
-				m.Image = Encoding.UTF8.GetBytes(m.Img);
-				ClothersForHandDBEntities.GetContext().SaveChanges();
-
-			}
+		private void MainFrame_ContentRendered(object sender, EventArgs e)
+		{
+			if (MainFrame.CanGoBack)
+				BackBtn.Visibility = Visibility.Visible;
+			else
+				BackBtn.Visibility = Visibility.Hidden;
 		}
 	}
 }
