@@ -20,5 +20,13 @@ namespace ClothersForHand.Date
 					return 3;
 			}
 		}
+
+		public string Supliers
+		{
+			get
+			{
+				return string.Join(", ", PossibleSupliersMaterial.Select(x => x.Suplier.SuplierName));
+			}
+		}
 	}
 }
