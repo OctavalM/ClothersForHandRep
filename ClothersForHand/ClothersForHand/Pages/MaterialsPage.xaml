@@ -33,7 +33,7 @@
 				         Width="150" />
 			</StackPanel>
 
-			<StackPanel>
+			<StackPanel Margin="0,0,50,0">
 				<TextBlock Text="Сортировка"
 						   FontSize="14"
 						   Margin="0,0,0,3" />
@@ -46,11 +46,11 @@
 							<TextBlock Text="Сортировка по наименованию"
 									   FontSize="14" 
 									   Margin="0,0,0,3" />
+
 							<ComboBox x:Name="MaterialNameSortCB"
-									  Width="150" 
-									  SelectedIndex="0">
-								<ComboBoxItem Content="Без сортировки" /> 
-								<ComboBoxItem Content="По возрастанию" />
+									  Width="150"   
+									  SelectionChanged="MaterialNameSortCB_SelectionChanged">
+ 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
 							</ComboBox>
 						</StackPanel>
@@ -60,10 +60,10 @@
 							<TextBlock Text="Сортировка по остатку на складе"
  									   FontSize="14"
 									   Margin="0,0,0,3" />
+
 							<ComboBox x:Name="CountInStockSortCB"
-									  Width="150"
-									  SelectedIndex="0">
-								<ComboBoxItem Content="Без сортировки" />
+									  Width="150" 
+									  SelectionChanged="CountInStockSortCB_SelectionChanged">
 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
 							</ComboBox>
@@ -74,10 +74,10 @@
 							<TextBlock Text="Сортировка по стоимости"
  									   FontSize="14"
 									   Margin="0,0,0,3" />
+
 							<ComboBox x:Name="CostSortCB"
 									  Width="150"
-									  SelectedIndex="0">
-								<ComboBoxItem Content="Без сортировки" />
+									  SelectionChanged="CostSortCB_SelectionChanged">
 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
 							</ComboBox>
@@ -85,10 +85,23 @@
 					</ComboBoxItem>
 				</ComboBox>
 			</StackPanel>
+
+			<StackPanel>
+				<TextBlock Text="Тип материала"
+						   FontSize="14"
+						   Margin="0,0,0,3" />
+
+				<ComboBox x:Name="MaterialTypeCB"
+						  Width="180" 
+						  DisplayMemberPath="MaterialTypeName"
+						  SelectionChanged="MaterialTypeCB_SelectionChanged">
+					 
+				</ComboBox>
+			</StackPanel>
 		</StackPanel>
 
 		<ListView x:Name="MaterialsLV" 
-		          Grid.Row="2"  
+		          Grid.Row="2"  SelectionMode="Multiple"
 				  Background="Transparent" 
 				  BorderBrush="Transparent"
 				  Margin="10">
