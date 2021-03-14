@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:ClothersForHand"
         mc:Ignorable="d"
         Title="Одежда для ручек" 
-        Height="520" 
-		MinHeight="520"
-        Width="800"
-		MinWidth="800">
+        Height="590" 
+		MinHeight="590"
+        Width="840"
+		MinWidth="840">
 
     <Grid>
 		<Grid.RowDefinitions>
