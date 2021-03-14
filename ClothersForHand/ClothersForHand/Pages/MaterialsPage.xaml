@@ -24,13 +24,66 @@
 		<StackPanel Orientation="Horizontal" 
 		            Grid.Row="1" 
 					HorizontalAlignment="Center">
-			<StackPanel>
+			<StackPanel Margin="0,0,50,0">
 				<TextBlock Text="Наименование материала" 
 				           FontSize="14" 
 						   Margin="0,0,0,3" />
 
 				<TextBox x:Name="MaterialNameTB" 
 				         Width="150" />
+			</StackPanel>
+
+			<StackPanel>
+				<TextBlock Text="Сортировка"
+						   FontSize="14"
+						   Margin="0,0,0,3" />
+
+				<ComboBox x:Name="MaterialameTB"
+						  Width="180" 
+						  HorizontalContentAlignment="Center"> 
+					<ComboBoxItem>
+						<StackPanel>
+							<TextBlock Text="Сортировка по наименованию"
+									   FontSize="14" 
+									   Margin="0,0,0,3" />
+							<ComboBox x:Name="MaterialNameSortCB"
+									  Width="150" 
+									  SelectedIndex="0">
+								<ComboBoxItem Content="Без сортировки" /> 
+								<ComboBoxItem Content="По возрастанию" />
+								<ComboBoxItem Content="По убыванию" />
+							</ComboBox>
+						</StackPanel>
+					</ComboBoxItem>
+					<ComboBoxItem>
+						<StackPanel >
+							<TextBlock Text="Сортировка по остатку на складе"
+ 									   FontSize="14"
+									   Margin="0,0,0,3" />
+							<ComboBox x:Name="CountInStockSortCB"
+									  Width="150"
+									  SelectedIndex="0">
+								<ComboBoxItem Content="Без сортировки" />
+								<ComboBoxItem Content="По возрастанию" />
+								<ComboBoxItem Content="По убыванию" />
+							</ComboBox>
+						</StackPanel>
+					</ComboBoxItem>
+					<ComboBoxItem>
+						<StackPanel >
+							<TextBlock Text="Сортировка по стоимости"
+ 									   FontSize="14"
+									   Margin="0,0,0,3" />
+							<ComboBox x:Name="CostSortCB"
+									  Width="150"
+									  SelectedIndex="0">
+								<ComboBoxItem Content="Без сортировки" />
+								<ComboBoxItem Content="По возрастанию" />
+								<ComboBoxItem Content="По убыванию" />
+							</ComboBox>
+						</StackPanel>
+					</ComboBoxItem>
+				</ComboBox>
 			</StackPanel>
 		</StackPanel>
 
