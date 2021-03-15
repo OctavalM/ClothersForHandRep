@@ -23,7 +23,8 @@ namespace ClothersForHand.Pages
 	/// </summary>
 	public partial class MaterialsPage : Page
 	{
-		int actualPage;
+		int pageIndex = 1;
+		int count;
 
 		public MaterialsPage()
 		{
@@ -97,7 +98,34 @@ namespace ClothersForHand.Pages
 				filteredMaterials = filteredMaterials.Where(x => x.MaterialTypeID == selectedType.MaterialTypeID).ToList();
 			}
 
-			MaterialsLV.ItemsSource = filteredMaterials.Take(15).ToList(); 
+			count = filteredMaterials.Count;
+			CountRecordsTB.Text = $"{15 * pageIndex} из {count}";
+
+			if (pageIndex == 1)
+			{
+				PrevBtn.IsEnabled = false;
+				filteredMaterials = filteredMaterials.Take(15).ToList();
+			}
+			//6 - pageIndex
+			if (pageIndex > 1 && filteredMaterials.Count > 0)
+			{
+				if (15 * pageIndex <= filteredMaterials.Count)
+				{
+					if (filteredMaterials.Skip(15 * pageIndex).Take(15).Count() < 15)
+					{
+						var totCount = filteredMaterials.Skip(15 * pageIndex).Take(15).Count();
+						filteredMaterials = filteredMaterials.Skip(15).Take(totCount).ToList();
+ 
+
+					}
+
+					else
+						filteredMaterials = filteredMaterials.Skip(15 * pageIndex).Take(15).ToList();
+ 
+				} 
+			}
+
+			MaterialsLV.ItemsSource = filteredMaterials; 
 		}
 
 		private void MaterialNameSortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -119,6 +147,22 @@ namespace ClothersForHand.Pages
 
 		private void MaterialTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			RefreshMaterials();
+
+		}
+
+		private void PrevBtn_Click(object sender, RoutedEventArgs e)
+		{ 
+				pageIndex--;
+			if (pageIndex < 1)
+				pageIndex = 1;
+			RefreshMaterials();
+
+		}
+
+		private void NextBtn_Click(object sender, RoutedEventArgs e)
+		{
+			pageIndex++;
 			RefreshMaterials();
 
 		}
