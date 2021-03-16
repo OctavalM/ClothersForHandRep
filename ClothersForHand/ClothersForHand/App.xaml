@@ -34,7 +34,7 @@
 		<SolidColorBrush x:Key="Button.Pressed.Background" Color="#A5E887" />
 		<SolidColorBrush x:Key="Button.Pressed.Border" Color="#A5E887" />
 		<SolidColorBrush x:Key="Button.Disabled.Background" Color="#A5E887" />
-		<SolidColorBrush x:Key="Button.Disabled.Border" Color="#A5E887" />
+		<SolidColorBrush x:Key="Button.Disabled.Border" Color="Transparent" />
 		<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#A5E887" />
 		<Style TargetType="{x:Type Button}">
 			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />

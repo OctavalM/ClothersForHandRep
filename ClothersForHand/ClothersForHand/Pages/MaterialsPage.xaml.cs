@@ -24,7 +24,10 @@ namespace ClothersForHand.Pages
 	public partial class MaterialsPage : Page
 	{
 		int pageIndex = 1;
-		int count;
+		int itemsOnPage = 15; 
+		List<Material> filteredMaterials = new List<Material>();
+		List<Material> materialsList = new List<Material>();
+		List<PageNumber> pageNumbers = new List<PageNumber>();
 
 		public MaterialsPage()
 		{
@@ -34,12 +37,12 @@ namespace ClothersForHand.Pages
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			MaterialTypeCB.ItemsSource = InsertCombobox.CreatedCombobox(ClothersForHandDBEntities.GetContext().MaterialType.ToList(), new MaterialType { MaterialTypeName = "Все типы" });
-		    RefreshMaterials();
+			RefreshMaterials();
 		}
 
 		public void RefreshMaterials()
 		{
-			var filteredMaterials = ClothersForHandDBEntities.GetContext().Material.ToList();
+			filteredMaterials = ClothersForHandDBEntities.GetContext().Material.ToList();
 
 			if (!string.IsNullOrWhiteSpace(MaterialameTB.Text))
 			{
@@ -47,7 +50,7 @@ namespace ClothersForHand.Pages
 				filteredMaterials = filteredMaterials.Where(x => x.MaterialName.ToLower().Contains(materialName.ToLower())).ToList();
 			}
 
-            if (MaterialNameSortCB.SelectedIndex == 1)
+			if (MaterialNameSortCB.SelectedIndex == 1)
 			{
 				CountInStockSortCB.IsEnabled = false;
 				CostSortCB.IsEnabled = false;
@@ -98,34 +101,59 @@ namespace ClothersForHand.Pages
 				filteredMaterials = filteredMaterials.Where(x => x.MaterialTypeID == selectedType.MaterialTypeID).ToList();
 			}
 
-			count = filteredMaterials.Count;
-			CountRecordsTB.Text = $"{15 * pageIndex} из {count}";
+			pageNumbers = new List<PageNumber>();
+ 			UpdatePageNumbers();
+			ViewPage();
+		}
 
+		public void UpdatePageNumbers()
+		{
+			var itemsCount = filteredMaterials.Count;
+			int pageCount;
+
+				pageCount = (int)(itemsCount / itemsOnPage);
+		
+
+			for (int i = 1; i <= pageCount; i++)
+			{
+				var number = new PageNumber();
+				number.Number = i;
+
+				pageNumbers.Add(number);
+			}
+			PageNumbersLV.ItemsSource = null;
+			PageNumbersLV.ItemsSource = pageNumbers;
+		}
+
+		private void ViewPage()
+		{
 			if (pageIndex == 1)
 			{
 				PrevBtn.IsEnabled = false;
-				filteredMaterials = filteredMaterials.Take(15).ToList();
-			}
-			//6 - pageIndex
+				materialsList = filteredMaterials.Take(itemsOnPage).ToList();
+ 			}
+
 			if (pageIndex > 1 && filteredMaterials.Count > 0)
 			{
-				if (15 * pageIndex <= filteredMaterials.Count)
+				PrevBtn.IsEnabled = true;
+
+				if (filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).Count() < itemsOnPage)
 				{
-					if (filteredMaterials.Skip(15 * pageIndex).Take(15).Count() < 15)
-					{
-						var totCount = filteredMaterials.Skip(15 * pageIndex).Take(15).Count();
-						filteredMaterials = filteredMaterials.Skip(15).Take(totCount).ToList();
- 
+					var totCount = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).Count();
+					materialsList = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(totCount).ToList();
+ 					NextBtn.IsEnabled = false;
+				}
+				else
+				{
+					NextBtn.IsEnabled = true;
 
-					}
-
-					else
-						filteredMaterials = filteredMaterials.Skip(15 * pageIndex).Take(15).ToList();
- 
-				} 
+					materialsList = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).ToList();
+					//var countOutput = 15 * pageIndex + 15 * pageIndex;
+					//CountRecordsTB.Text = $"{countOutput} из {count}";
+				}
 			}
 
-			MaterialsLV.ItemsSource = filteredMaterials; 
+			MaterialsLV.ItemsSource = materialsList;
 		}
 
 		private void MaterialNameSortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -136,35 +164,56 @@ namespace ClothersForHand.Pages
 		private void CountInStockSortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			RefreshMaterials();
-
 		}
 
 		private void CostSortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			RefreshMaterials();
-
 		}
 
 		private void MaterialTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			RefreshMaterials();
-
 		}
 
 		private void PrevBtn_Click(object sender, RoutedEventArgs e)
 		{ 
 				pageIndex--;
+
 			if (pageIndex < 1)
 				pageIndex = 1;
-			RefreshMaterials();
 
+			RefreshMaterials();
 		}
 
 		private void NextBtn_Click(object sender, RoutedEventArgs e)
 		{
 			pageIndex++;
 			RefreshMaterials();
+		}
 
+		private void MaterialsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (MaterialsLV.SelectedItems.Count == 1)
+			{
+
+			}
+
+			if (MaterialsLV.SelectedItems.Count > 1)
+			{
+
+			}
+		}
+
+		private void GoPageBtn_Click(object sender, RoutedEventArgs e)
+		{
+			var enterBtn = sender as Button;
+			var item = (enterBtn.DataContext as PageNumber).Number;
+			 
+			pageIndex = item;
+
+
+			ViewPage();
 		}
 	}
 }
