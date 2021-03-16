@@ -230,8 +230,8 @@
 			</ListView.ItemContainerStyle>
 		</ListView>
 
-		<StackPanel Grid.Row="4">
-			<Button />
+		<StackPanel Grid.Row="4" VerticalAlignment="Center">
+			<Button Height="25"  />
 		</StackPanel>
 
 		<ScrollViewer Grid.Row="5"  
