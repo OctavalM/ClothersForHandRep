@@ -1,14 +1,13 @@
-﻿<Page
-	x:Class="ClothersForHand.Pages.MaterialsPage"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:ClothersForHand.Pages"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	d:DesignHeight="510"
-	d:DesignWidth="860"
-	Loaded="Page_Loaded"
-	mc:Ignorable="d">
+﻿<Page x:Class="ClothersForHand.Pages.MaterialsPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:local="clr-namespace:ClothersForHand.Pages"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d"
+	  d:DesignHeight="510"
+	  d:DesignWidth="860"
+	  Loaded="Page_Loaded">
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -20,45 +19,39 @@
 			<RowDefinition Height="50" />
 		</Grid.RowDefinitions>
 
-		<TextBlock
-			FontSize="16"
-			FontWeight="Bold"
-			Text="Список материалов" />
+		<TextBlock FontSize="16"
+			       FontWeight="Bold"
+			       Text="Список материалов" />
 
-		<StackPanel
-			Grid.Row="1"
-			HorizontalAlignment="Center"
-			Orientation="Horizontal">
+		<StackPanel Grid.Row="1"
+			        HorizontalAlignment="Center"
+			        Orientation="Horizontal">
 			<StackPanel Margin="0,0,50,0">
-				<TextBlock
-					Margin="0,0,0,3"
-					FontSize="14"
-					Text="Наименование материала" />
+				<TextBlock Margin="0,0,0,3"
+					       FontSize="14"
+					       Text="Наименование материала" />
 
-				<TextBox x:Name="MaterialNameTB" Width="150" />
+				<TextBox x:Name="MaterialNameTB" 
+				         Width="150" TextChanged="MaterialNameTB_TextChanged" />
 			</StackPanel>
 
 			<StackPanel Margin="0,0,50,0">
-				<TextBlock
-					Margin="0,0,0,3"
-					FontSize="14"
-					Text="Сортировка" />
+				<TextBlock Margin="0,0,0,3"
+					       FontSize="14"
+					       Text="Сортировка" />
 
-				<ComboBox
-					x:Name="MaterialameTB"
-					Width="180"
-					HorizontalContentAlignment="Center">
+				<ComboBox Width="180"
+					      HorizontalContentAlignment="Center">
 					<ComboBoxItem>
 						<StackPanel>
-							<TextBlock
-								Margin="0,0,0,3"
-								FontSize="14"
-								Text="Сортировка по наименованию" />
+							<TextBlock Margin="0,0,0,3"
+								       FontSize="14"
+								       Text="Сортировка по наименованию" />
 
-							<ComboBox
-								x:Name="MaterialNameSortCB"
-								Width="150"
-								SelectionChanged="MaterialNameSortCB_SelectionChanged">
+							<ComboBox x:Name="MaterialNameSortCB"
+								      Width="150" 
+								      SelectionChanged="MaterialNameSortCB_SelectionChanged">
+								<ComboBoxItem Content="Без сортировки" />
 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
 							</ComboBox>
@@ -66,15 +59,14 @@
 					</ComboBoxItem>
 					<ComboBoxItem>
 						<StackPanel>
-							<TextBlock
-								Margin="0,0,0,3"
-								FontSize="14"
-								Text="Сортировка по остатку на складе" />
+							<TextBlock Margin="0,0,0,3"
+								       FontSize="14"
+								       Text="Сортировка по остатку на складе" />
 
-							<ComboBox
-								x:Name="CountInStockSortCB"
-								Width="150"
-								SelectionChanged="CountInStockSortCB_SelectionChanged">
+							<ComboBox x:Name="CountInStockSortCB"
+									  Width="150"
+									  SelectionChanged="CountInStockSortCB_SelectionChanged">
+								<ComboBoxItem Content="Без сортировки" />
 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
 							</ComboBox>
@@ -82,15 +74,14 @@
 					</ComboBoxItem>
 					<ComboBoxItem>
 						<StackPanel>
-							<TextBlock
-								Margin="0,0,0,3"
-								FontSize="14"
-								Text="Сортировка по стоимости" />
+							<TextBlock Margin="0,0,0,3"
+								       FontSize="14"
+								       Text="Сортировка по стоимости" />
 
-							<ComboBox
-								x:Name="CostSortCB"
-								Width="150"
-								SelectionChanged="CostSortCB_SelectionChanged">
+							<ComboBox x:Name="CostSortCB"
+									  Width="150"
+									  SelectionChanged="CostSortCB_SelectionChanged">
+								<ComboBoxItem Content="Без сортировки" />
 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
 							</ComboBox>
@@ -100,41 +91,22 @@
 			</StackPanel>
 
 			<StackPanel>
-				<TextBlock
-					Margin="0,0,0,3"
-					FontSize="14"
-					Text="Тип материала" />
+				<TextBlock Margin="0,0,0,3"
+					       FontSize="14"
+					       Text="Тип материала" />
 
-				<ComboBox
-					x:Name="MaterialTypeCB"
+				<ComboBox x:Name="MaterialTypeCB"
 					Width="180"
 					DisplayMemberPath="MaterialTypeName"
 					SelectionChanged="MaterialTypeCB_SelectionChanged" />
 			</StackPanel>
 		</StackPanel>
-
-		<StackPanel
-			Grid.Row="2"
-			HorizontalAlignment="Center"
-			Orientation="Horizontal">
-			<Button
-				x:Name="PrevBtn"
-				Width="50"
-				Height="25"
-				Click="PrevBtn_Click"
-				IsEnabled="False" />
-			<TextBlock
-				x:Name="CountRecordsTB"
-				FontSize="14"
-				FontWeight="Bold" />
-			<Button
-				x:Name="NextBtn"
-				Width="50"
-				Height="25"
-				Click="NextBtn_Click" />
-
-		</StackPanel>
-
+		 
+	    <TextBlock x:Name="CountRecordsTB"
+				   Grid.Row="2"
+				   HorizontalAlignment="Center"
+				   FontSize="14"
+				   FontWeight="Bold" />  
 
 		<ListView
 			x:Name="MaterialsLV"
@@ -262,10 +234,19 @@
 			<Button />
 		</StackPanel>
 
-		<ScrollViewer Grid.Row="5" VerticalScrollBarVisibility="Hidden"  >
-			<StackPanel>
+		<ScrollViewer Grid.Row="5"  
+		              Margin="10"
+		              VerticalScrollBarVisibility="Hidden" 
+					  HorizontalScrollBarVisibility="Auto"  >
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+				<Button x:Name="PrevBtn"
+						Width="40"
+						Height="25"
+						Content="&lt;"
+						Click="PrevBtn_Click"
+						IsEnabled="False" />
 				<ListView x:Name="PageNumbersLV" 
-				          Background="Transparent"
+				          Background="Transparent" HorizontalAlignment="Stretch"
 						  BorderBrush="Transparent">
 					<ListView.ItemsPanel>
 						<ItemsPanelTemplate>
@@ -282,7 +263,34 @@
 										BorderBrush="Transparent" Click="GoPageBtn_Click" />
 							</StackPanel>							
 						</DataTemplate>
-					</ListView.ItemTemplate></ListView>
+					</ListView.ItemTemplate>
+					<ListView.Resources>
+						<Style TargetType="ListViewItem">
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="ListViewItem">
+										<Border Name="Border" >
+											<ContentPresenter />
+										</Border>
+										<ControlTemplate.Triggers>
+											<Trigger Property="IsSelected"
+													 Value="true">
+												<Setter TargetName="Border"
+														Property="Background"
+														Value="transparent" />
+											</Trigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</ListView.Resources>
+				</ListView>
+				<Button x:Name="NextBtn"
+						Width="40"
+						Height="25"
+						Content="&gt;"
+						Click="NextBtn_Click" />
 			</StackPanel>
 		</ScrollViewer>
 			</Grid>

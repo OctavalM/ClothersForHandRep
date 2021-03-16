@@ -44,13 +44,20 @@ namespace ClothersForHand.Pages
 		{
 			filteredMaterials = ClothersForHandDBEntities.GetContext().Material.ToList();
 
-			if (!string.IsNullOrWhiteSpace(MaterialameTB.Text))
+			if (!string.IsNullOrWhiteSpace(MaterialNameTB.Text))
 			{
-				var materialName = MaterialameTB.Text;
+				var materialName = MaterialNameTB.Text;
 				filteredMaterials = filteredMaterials.Where(x => x.MaterialName.ToLower().Contains(materialName.ToLower())).ToList();
 			}
 
-			if (MaterialNameSortCB.SelectedIndex == 1)
+			if (MaterialNameSortCB.SelectedIndex == 0)
+			{
+				CountInStockSortCB.IsEnabled = true;
+			    CostSortCB.IsEnabled = true;
+
+				filteredMaterials = filteredMaterials.OrderBy(x => x.MaterialID).ToList();
+			}
+			else if (MaterialNameSortCB.SelectedIndex == 1)
 			{
 				CountInStockSortCB.IsEnabled = false;
 				CostSortCB.IsEnabled = false;
@@ -63,27 +70,41 @@ namespace ClothersForHand.Pages
 				CostSortCB.IsEnabled = false;
 
 				filteredMaterials = filteredMaterials.OrderByDescending(x => x.MaterialName).ToList();
-			}
+			} 
 
 			if (CountInStockSortCB.SelectedIndex == 0)
 			{
 				MaterialNameSortCB.IsEnabled = true;
-				CostSortCB.IsEnabled = true;
+			    CostSortCB.IsEnabled = true;
 
-				filteredMaterials = filteredMaterials.OrderBy(x => x.CountInStock).ToList();
+				filteredMaterials = filteredMaterials.OrderBy(x => x.MaterialID).ToList();
 			}
 			else if (CountInStockSortCB.SelectedIndex == 1)
 			{
 				MaterialNameSortCB.IsEnabled = false;
 				CostSortCB.IsEnabled = false;
 
-				filteredMaterials = filteredMaterials.OrderByDescending(x => x.CountInStock).ToList();
+				filteredMaterials = filteredMaterials.OrderBy(x => x.CountInStock).ToList();
 			}
+			else if (CountInStockSortCB.SelectedIndex == 2)
+			{
+				MaterialNameSortCB.IsEnabled = false;
+				CostSortCB.IsEnabled = false;
+
+				filteredMaterials = filteredMaterials.OrderByDescending(x => x.CountInStock).ToList();
+			} 
 
 			if (CostSortCB.SelectedIndex == 0)
-			{
+			{ 
 				MaterialNameSortCB.IsEnabled = true;
-				CountInStockSortCB.IsEnabled = true;
+				CountInStockSortCB.IsEnabled = true; 
+
+				filteredMaterials = filteredMaterials.OrderBy(x => x.MaterialID).ToList();
+			}
+			else if (CostSortCB.SelectedIndex == 0)
+			{
+				MaterialNameSortCB.IsEnabled = false;
+				CountInStockSortCB.IsEnabled = false;
 
 				filteredMaterials = filteredMaterials.OrderBy(x => x.Cost).ToList();
 			}
@@ -109,10 +130,14 @@ namespace ClothersForHand.Pages
 		public void UpdatePageNumbers()
 		{
 			var itemsCount = filteredMaterials.Count;
-			int pageCount;
+			double pageCount;
 
-				pageCount = (int)(itemsCount / itemsOnPage);
-		
+			if (itemsCount % itemsOnPage != 0)
+			{
+				pageCount = itemsCount / itemsOnPage + 1;
+			}
+			else
+				pageCount = itemsCount / itemsOnPage;
 
 			for (int i = 1; i <= pageCount; i++)
 			{
@@ -155,7 +180,10 @@ namespace ClothersForHand.Pages
 
 			MaterialsLV.ItemsSource = materialsList;
 		}
-
+		private void MaterialNameTB_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			RefreshMaterials();
+		}
 		private void MaterialNameSortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{ 
 			RefreshMaterials();
@@ -182,13 +210,14 @@ namespace ClothersForHand.Pages
 
 			if (pageIndex < 1)
 				pageIndex = 1;
-
+			
 			RefreshMaterials();
 		}
 
 		private void NextBtn_Click(object sender, RoutedEventArgs e)
 		{
 			pageIndex++;
+			
 			RefreshMaterials();
 		}
 
@@ -212,8 +241,10 @@ namespace ClothersForHand.Pages
 			 
 			pageIndex = item;
 
-
+			
 			ViewPage();
 		}
+
+		
 	}
 }
