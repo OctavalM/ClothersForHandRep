@@ -7,14 +7,14 @@
 		mc:Ignorable="d"
 		Title="Изменение минимального количества"
 	    ResizeMode="NoResize"
-	    SizeToContent="WidthAndHeight"
-	    Width="370">
+		WindowStartupLocation="CenterScreen"
+	    Width="380"
+		Height="115">
 
 	<Grid Margin="10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition />
 		</Grid.RowDefinitions>
 
 		<TextBlock HorizontalAlignment="Left"
@@ -23,7 +23,8 @@
 
 		<DockPanel Grid.Row="1">
 			<TextBox x:Name="MinCountTB"
-				     Width="120"
+				     Width="60"
+					 MaxLength="4"
 				     HorizontalAlignment="Left" 
 					 PreviewTextInput="MinCountTB_PreviewTextInput" />
 

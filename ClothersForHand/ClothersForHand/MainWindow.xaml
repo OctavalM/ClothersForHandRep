@@ -9,7 +9,8 @@
         Height="600" 
 		MinHeight="600"
         Width="860"
-		MinWidth="860">
+		MinWidth="860"
+		WindowStartupLocation="CenterScreen">
 
     <Grid>
 		<Grid.RowDefinitions>

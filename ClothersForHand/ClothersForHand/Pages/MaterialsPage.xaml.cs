@@ -78,9 +78,14 @@ namespace ClothersForHand.Pages
 		{
 			var selectedMaterial = MaterialsLV.SelectedItem as Material;
 
-			AddEditMaterialPage addEditMaterialPage = new AddEditMaterialPage(selectedMaterial);
-			addEditMaterialPage.TitleTB.Text = "Редактирование материала";
-			NavigationService.Navigate(addEditMaterialPage);
+			if (selectedMaterial == null)
+				return;
+			else
+			{
+				AddEditMaterialPage addEditMaterialPage = new AddEditMaterialPage(selectedMaterial);
+				addEditMaterialPage.TitleTB.Text = "Редактирование материала";
+				NavigationService.Navigate(addEditMaterialPage);
+			}
 		}
 
 		private void SelectedMaterialCB_Checked(object sender, RoutedEventArgs e)
@@ -263,6 +268,7 @@ namespace ClothersForHand.Pages
 
 				pageNumbers.Add(number);
 			}
+
 			PageNumbersLV.ItemsSource = null;
 			PageNumbersLV.ItemsSource = pageNumbers;
 		}
@@ -302,9 +308,8 @@ namespace ClothersForHand.Pages
 				}
 			}
 
+			MaterialsLV.ItemsSource = null;
 			MaterialsLV.ItemsSource = materialsList;
-		}
-
-		
+		} 
 	}
 }
