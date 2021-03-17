@@ -68,16 +68,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Tools\InsertCombobox.cs" />
-    <Compile Include="Tools\PageNumber.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Date\ClothersForHandDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,8 +92,6 @@
     <Compile Include="Date\MaterialType.cs">
       <DependentUpon>ClothersForHandDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Date\Partials\ClothersForHandDBEntities.cs" />
-    <Compile Include="Date\Partials\Material.cs" />
     <Compile Include="Date\PossibleSupliersMaterial.cs">
       <DependentUpon>ClothersForHandDBModel.tt</DependentUpon>
     </Compile>
@@ -119,11 +107,37 @@
     <Compile Include="Date\UnitMeasure.cs">
       <DependentUpon>ClothersForHandDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddEditMaterialPage.xaml.cs">
+      <DependentUpon>AddEditMaterialPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\InsertCombobox.cs" />
+    <Compile Include="Tools\PageNumber.cs" />
+    <Compile Include="Windows\EditMinCountWindow.xaml.cs">
+      <DependentUpon>EditMinCountWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Date\Partials\ClothersForHandDBEntities.cs" />
+    <Compile Include="Date\Partials\Material.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddEditMaterialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\MaterialsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditMinCountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,18 +179,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Date\ClothersForHandDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ClothersForHandDBModel.Context.cs</LastGenOutput>
       <DependentUpon>ClothersForHandDBModel.edmx</DependentUpon>
+      <LastGenOutput>ClothersForHandDBModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Date\ClothersForHandDBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ClothersForHandDBModel.edmx</DependentUpon>
       <LastGenOutput>ClothersForHandDBModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\picture.png" />
     <Resource Include="Images\icon.ico" />
     <Resource Include="Images\logo.png" />

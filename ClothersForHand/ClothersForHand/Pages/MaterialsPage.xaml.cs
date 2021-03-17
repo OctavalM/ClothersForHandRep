@@ -1,5 +1,6 @@
 ﻿using ClothersForHand.Date;
 using ClothersForHand.Tools;
+using ClothersForHand.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +25,8 @@ namespace ClothersForHand.Pages
 	public partial class MaterialsPage : Page
 	{
 		int pageIndex = 1;
-		int itemsOnPage = 15; 
+		int itemsOnPage = 15;
+		List<Material> selectedMaterialsList = new List<Material>();
 		List<Material> filteredMaterials = new List<Material>();
 		List<Material> materialsList = new List<Material>();
 		List<PageNumber> pageNumbers = new List<PageNumber>();
@@ -34,10 +36,17 @@ namespace ClothersForHand.Pages
 			InitializeComponent();
 		}
 
-		private void Page_Loaded(object sender, RoutedEventArgs e)
+		private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			MaterialTypeCB.ItemsSource = InsertCombobox.CreatedCombobox(ClothersForHandDBEntities.GetContext().MaterialType.ToList(), new MaterialType { MaterialTypeName = "Все типы" });
-			RefreshMaterials();
+			selectedMaterialsList = new List<Material>();
+			EditMinCountBtn.Visibility = Visibility.Hidden;
+
+			if (Visibility == Visibility.Visible)
+			{
+				ClothersForHandDBEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+				MaterialTypeCB.ItemsSource = InsertCombobox.CreatedCombobox(ClothersForHandDBEntities.GetContext().MaterialType.ToList(), new MaterialType { MaterialTypeName = "Все типы" });
+				RefreshMaterials();
+			} 
 		}
 
 		private void MaterialNameTB_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,38 +74,87 @@ namespace ClothersForHand.Pages
 			RefreshMaterials();
 		}
 
+		private void MaterialsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var selectedMaterial = MaterialsLV.SelectedItem as Material;
+
+			AddEditMaterialPage addEditMaterialPage = new AddEditMaterialPage(selectedMaterial);
+			addEditMaterialPage.TitleTB.Text = "Редактирование материала";
+			NavigationService.Navigate(addEditMaterialPage);
+		}
+
+		private void SelectedMaterialCB_Checked(object sender, RoutedEventArgs e)
+		{
+			var check = sender as CheckBox;
+			var material = check.DataContext as Material;
+
+			selectedMaterialsList.Add(material);
+
+			if (selectedMaterialsList.Count > 1)
+				EditMinCountBtn.Visibility = Visibility.Visible;
+		}
+
+		private void SelectedMaterialCB_Unchecked(object sender, RoutedEventArgs e)
+		{
+			var check = sender as CheckBox;
+			var material = check.DataContext as Material;
+
+			selectedMaterialsList.Remove(material);
+
+			if (selectedMaterialsList.Count <= 1)
+				EditMinCountBtn.Visibility = Visibility.Hidden;
+		}
+
+		private void AddMaterialBtn_Click(object sender, RoutedEventArgs e)
+		{
+			AddEditMaterialPage addEditMaterialPage = new AddEditMaterialPage(new Material());
+			addEditMaterialPage.TitleTB.Text = "Добавление материала";
+			NavigationService.Navigate(addEditMaterialPage);
+		}
+
+		private void EditMinCountBtn_Click(object sender, RoutedEventArgs e)
+		{
+			EditMinCountWindow editMinCountWindow = new EditMinCountWindow(selectedMaterialsList);
+
+			if (editMinCountWindow.ShowDialog() == true)
+			{
+				foreach (var material in editMinCountWindow.materialsList)
+				{
+					ClothersForHandDBEntities.GetContext().Material.Where(x => x.MaterialID == material.MaterialID).Single().MinCount = material.MinCount;
+					ClothersForHandDBEntities.GetContext().SaveChanges();
+					RefreshMaterials();
+				}
+			}
+		}
+
 		private void PrevBtn_Click(object sender, RoutedEventArgs e)
 		{
 			pageIndex--;  
 			RefreshMaterials();
+
+			selectedMaterialsList = new List<Material>();
+		    EditMinCountBtn.Visibility = Visibility.Hidden;
 		}
 
 		private void NextBtn_Click(object sender, RoutedEventArgs e)
 		{
 			pageIndex++; 
 			RefreshMaterials();
-		}
 
-		private void MaterialsLV_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (MaterialsLV.SelectedItems.Count == 1)
-			{
-
-			}
-
-			if (MaterialsLV.SelectedItems.Count > 1)
-			{
-
-			}
+			selectedMaterialsList = new List<Material>();
+			EditMinCountBtn.Visibility = Visibility.Hidden;
 		}
 
 		private void GoPageBtn_Click(object sender, RoutedEventArgs e)
 		{
 			var enterBtn = sender as Button;
-			var item = (enterBtn.DataContext as PageNumber).Number;
+			var numberPage = (enterBtn.DataContext as PageNumber).Number;
 
-			pageIndex = item;
+			pageIndex = numberPage;
 			ViewPage();
+
+			selectedMaterialsList = new List<Material>();
+			EditMinCountBtn.Visibility = Visibility.Hidden;
 		}
 
 		public void RefreshMaterials()
@@ -211,13 +269,15 @@ namespace ClothersForHand.Pages
 
 		private void ViewPage()
 		{
+			int count;
 			if (pageIndex == 1)
 			{
 				PrevBtn.IsEnabled = false;
 				NextBtn.IsEnabled = true;
 
 				materialsList = filteredMaterials.Take(itemsOnPage).ToList();
- 			}
+				CountRecordsTB.Text = $"{itemsOnPage} из {filteredMaterials.Count}";
+			}
 
 			if (pageIndex > 1 && filteredMaterials.Count > 0)
 			{
@@ -225,19 +285,26 @@ namespace ClothersForHand.Pages
 
 				if (filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).Count() < itemsOnPage)
 				{
-					var totCount = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).Count();
-					materialsList = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(totCount).ToList();
- 					NextBtn.IsEnabled = false;
+					var itemsCount = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).Count();
+					materialsList = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsCount).ToList();
+					count = itemsOnPage * (pageIndex - 1) + filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsCount).Count();
+					CountRecordsTB.Text = $"{count} из {filteredMaterials.Count}";
+
+					NextBtn.IsEnabled = false;
 				}
 				else
 				{
 					NextBtn.IsEnabled = true;
 
 					materialsList = filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).ToList();
+					count = itemsOnPage * (pageIndex - 1) + filteredMaterials.Skip(itemsOnPage * (pageIndex - 1)).Take(itemsOnPage).Count();
+					CountRecordsTB.Text = $"{count} из {filteredMaterials.Count}";
 				}
 			}
 
 			MaterialsLV.ItemsSource = materialsList;
-		} 
+		}
+
+		
 	}
 }

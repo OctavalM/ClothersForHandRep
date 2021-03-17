@@ -23,13 +23,13 @@ namespace ClothersForHand.Date
         public int MaterialID { get; set; }
         public string MaterialName { get; set; }
         public int MaterialTypeID { get; set; }
-        public string Img { get; set; }
         public byte[] Image { get; set; }
         public decimal Cost { get; set; }
         public int CountInStock { get; set; }
         public int MinCount { get; set; }
         public int CountInPackage { get; set; }
         public int UnitMeasureID { get; set; }
+        public string Description { get; set; }
     
         public virtual MaterialType MaterialType { get; set; }
         public virtual UnitMeasure UnitMeasure { get; set; }

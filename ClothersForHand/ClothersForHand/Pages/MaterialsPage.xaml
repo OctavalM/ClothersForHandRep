@@ -6,8 +6,8 @@
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  mc:Ignorable="d"
 	  d:DesignHeight="510"
-	  d:DesignWidth="860"
-	  Loaded="Page_Loaded">
+	  d:DesignWidth="860" 
+	  IsVisibleChanged="Page_IsVisibleChanged">
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -31,8 +31,9 @@
 					       FontSize="14"
 					       Text="Наименование материала" />
 
-				<TextBox x:Name="MaterialNameTB" 
-				         Width="150" TextChanged="MaterialNameTB_TextChanged" />
+				<TextBox x:Name="MaterialNameTB"
+					     Width="150"
+					     TextChanged="MaterialNameTB_TextChanged" />
 			</StackPanel>
 
 			<StackPanel Margin="0,0,50,0">
@@ -40,8 +41,8 @@
 					       FontSize="14"
 					       Text="Сортировка" />
 
-				<ComboBox Width="180"
-					      HorizontalContentAlignment="Center">
+				<ComboBox Width="180" 
+				          HorizontalContentAlignment="Center">
 					<ComboBoxItem>
 						<StackPanel>
 							<TextBlock Margin="0,0,0,3"
@@ -49,7 +50,7 @@
 								       Text="Сортировка по наименованию" />
 
 							<ComboBox x:Name="MaterialNameSortCB"
-								      Width="150" 
+								      Width="150"
 								      SelectionChanged="MaterialNameSortCB_SelectionChanged">
 								<ComboBoxItem Content="Без сортировки" />
 								<ComboBoxItem Content="По возрастанию" />
@@ -64,8 +65,8 @@
 								       Text="Сортировка по остатку на складе" />
 
 							<ComboBox x:Name="CountInStockSortCB"
-									  Width="150"
-									  SelectionChanged="CountInStockSortCB_SelectionChanged">
+								      Width="150"
+								      SelectionChanged="CountInStockSortCB_SelectionChanged">
 								<ComboBoxItem Content="Без сортировки" />
 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
@@ -79,8 +80,8 @@
 								       Text="Сортировка по стоимости" />
 
 							<ComboBox x:Name="CostSortCB"
-									  Width="150"
-									  SelectionChanged="CostSortCB_SelectionChanged">
+								      Width="150"
+								      SelectionChanged="CostSortCB_SelectionChanged">
 								<ComboBoxItem Content="Без сортировки" />
 								<ComboBoxItem Content="По возрастанию" />
 								<ComboBoxItem Content="По убыванию" />
@@ -96,17 +97,17 @@
 					       Text="Тип материала" />
 
 				<ComboBox x:Name="MaterialTypeCB"
-					Width="180"
-					DisplayMemberPath="MaterialTypeName"
-					SelectionChanged="MaterialTypeCB_SelectionChanged" />
+					      Width="180"
+					      DisplayMemberPath="MaterialTypeName"
+					      SelectionChanged="MaterialTypeCB_SelectionChanged" />
 			</StackPanel>
 		</StackPanel>
-		 
-	    <TextBlock x:Name="CountRecordsTB"
-				   Grid.Row="2"
-				   HorizontalAlignment="Center"
-				   FontSize="14"
-				   FontWeight="Bold" />  
+
+		<TextBlock x:Name="CountRecordsTB"
+			       Grid.Row="2"
+			       HorizontalAlignment="Center"
+			       FontSize="14"
+			       FontWeight="Bold" />
 
 		<ListView
 			x:Name="MaterialsLV"
@@ -114,8 +115,8 @@
 			Margin="10,0,10,0"
 			Background="Transparent"
 			BorderBrush="Transparent"
-			SelectionMode="Multiple"
-			SelectionChanged="MaterialsLV_SelectionChanged">
+			SelectionChanged="MaterialsLV_SelectionChanged"
+			SelectionMode="Multiple">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<Grid Margin="0,15,0,15">
@@ -132,7 +133,6 @@
 										<DataTrigger Binding="{Binding Image}" Value="{x:Null}">
 											<Setter Property="Source" Value="/Images/picture.png" />
 										</DataTrigger>
-
 									</Style.Triggers>
 								</Style>
 							</Image.Style>
@@ -154,6 +154,11 @@
 							</Grid.RowDefinitions>
 
 							<StackPanel Orientation="Horizontal">
+								<CheckBox x:Name="SelectedMaterialCB" 
+								          VerticalAlignment="Center" 
+										  Checked="SelectedMaterialCB_Checked"
+										  Unchecked="SelectedMaterialCB_Unchecked"/>
+
 								<TextBlock
 									Margin="0,0,10,0"
 									FontSize="16"
@@ -230,24 +235,44 @@
 			</ListView.ItemContainerStyle>
 		</ListView>
 
-		<StackPanel Grid.Row="4" VerticalAlignment="Center">
-			<Button Height="25"  />
-		</StackPanel>
+		<DockPanel Grid.Row="4" 
+		            VerticalAlignment="Center"  
+					HorizontalAlignment="Stretch">
+			<Button x:Name="AddMaterialBtn"
+					Content="Добавить материал"
+					Height="25"
+					Width="150"
+					Margin="10,0,0,0"
+					Click="AddMaterialBtn_Click" />
 
-		<ScrollViewer Grid.Row="5"  
-		              Margin="10"
-		              VerticalScrollBarVisibility="Hidden" 
-					  HorizontalScrollBarVisibility="Auto"  >
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-				<Button x:Name="PrevBtn"
-						Width="40"
-						Height="25"
-						Content="&lt;"
-						Click="PrevBtn_Click"
-						IsEnabled="False" />
-				<ListView x:Name="PageNumbersLV" 
-				          Background="Transparent" HorizontalAlignment="Stretch"
-						  BorderBrush="Transparent">
+			<Button x:Name="EditMinCountBtn"
+ 					Content="Изменить максимальное количество" 
+					Visibility="Hidden"
+					Height="25"
+					Width="250"
+					Margin="0,0,10,0"
+					HorizontalAlignment="Right"
+					Click="EditMinCountBtn_Click" />
+		</DockPanel>
+		 
+		<ScrollViewer
+			Grid.Row="5"
+			Margin="10"
+			HorizontalScrollBarVisibility="Auto"
+			VerticalScrollBarVisibility="Hidden">
+			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+				<Button
+					x:Name="PrevBtn"
+					Width="40"
+					Height="25"
+					Click="PrevBtn_Click"
+					Content="&lt;"
+					IsEnabled="False" />
+				<ListView
+					x:Name="PageNumbersLV"
+					HorizontalAlignment="Stretch"
+					Background="Transparent"
+					BorderBrush="Transparent">
 					<ListView.ItemsPanel>
 						<ItemsPanelTemplate>
 							<WrapPanel Orientation="Horizontal" />
@@ -256,12 +281,14 @@
 					<ListView.ItemTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
-								<Button x:Name="GoPageBtn"
-										Margin="3"
-										Content="{Binding Number}"
-										Background="Transparent"
-										BorderBrush="Transparent" Click="GoPageBtn_Click" />
-							</StackPanel>							
+								<Button
+									x:Name="GoPageBtn"
+									Margin="3"
+									Background="Transparent"
+									BorderBrush="Transparent"
+									Click="GoPageBtn_Click"
+									Content="{Binding Number}" />
+							</StackPanel>
 						</DataTemplate>
 					</ListView.ItemTemplate>
 					<ListView.Resources>
@@ -269,15 +296,12 @@
 							<Setter Property="Template">
 								<Setter.Value>
 									<ControlTemplate TargetType="ListViewItem">
-										<Border Name="Border" >
+										<Border Name="Border">
 											<ContentPresenter />
 										</Border>
 										<ControlTemplate.Triggers>
-											<Trigger Property="IsSelected"
-													 Value="true">
-												<Setter TargetName="Border"
-														Property="Background"
-														Value="transparent" />
+											<Trigger Property="IsSelected" Value="true">
+												<Setter TargetName="Border" Property="Background" Value="transparent" />
 											</Trigger>
 										</ControlTemplate.Triggers>
 									</ControlTemplate>
@@ -286,12 +310,13 @@
 						</Style>
 					</ListView.Resources>
 				</ListView>
-				<Button x:Name="NextBtn"
-						Width="40"
-						Height="25"
-						Content="&gt;"
-						Click="NextBtn_Click" />
+				<Button
+					x:Name="NextBtn"
+					Width="40"
+					Height="25"
+					Click="NextBtn_Click"
+					Content="&gt;" />
 			</StackPanel>
 		</ScrollViewer>
-			</Grid>
+	</Grid>
 </Page>

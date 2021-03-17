@@ -30,8 +30,7 @@ namespace ClothersForHand
 
 		private void BackBtn_Click(object sender, RoutedEventArgs e)
 		{
-			if (MainFrame.Navigate(new MaterialsPage()))
-				MainFrame.Navigate(new MaterialsPage());
+			MainFrame.GoBack();
 		}
 
 		private void MainFrame_ContentRendered(object sender, EventArgs e)
