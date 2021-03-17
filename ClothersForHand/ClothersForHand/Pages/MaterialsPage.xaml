@@ -109,14 +109,13 @@
 			       FontSize="14"
 			       FontWeight="Bold" />
 
-		<ListView
-			x:Name="MaterialsLV"
-			Grid.Row="3"
-			Margin="10,0,10,0"
-			Background="Transparent"
-			BorderBrush="Transparent"
-			SelectionChanged="MaterialsLV_SelectionChanged"
-			SelectionMode="Multiple">
+		<ListView x:Name="MaterialsLV"
+			      Grid.Row="3"
+			      Margin="10,0,10,0"
+			      Background="Transparent"
+			      BorderBrush="Transparent"
+			      SelectionChanged="MaterialsLV_SelectionChanged"
+			      SelectionMode="Multiple">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<Grid Margin="0,15,0,15">
@@ -128,20 +127,22 @@
 						<Image Height="50" Margin="10,0,0,0">
 							<Image.Style>
 								<Style TargetType="{x:Type Image}">
-									<Setter Property="Source" Value="{Binding Image}" />
+									<Setter Property="Source" 
+									        Value="{Binding Image}" />
 									<Style.Triggers>
-										<DataTrigger Binding="{Binding Image}" Value="{x:Null}">
-											<Setter Property="Source" Value="/Images/picture.png" />
+										<DataTrigger Binding="{Binding Image}" 
+										             Value="{x:Null}">
+											<Setter Property="Source" 
+											        Value="/Images/picture.png" />
 										</DataTrigger>
 									</Style.Triggers>
 								</Style>
 							</Image.Style>
 						</Image>
 
-						<Grid
-							Grid.Column="1"
-							Margin="15,0,0,0"
-							VerticalAlignment="Top">
+						<Grid Grid.Column="1"
+							  Margin="15,0,0,0"
+							  VerticalAlignment="Top">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition />
 								<ColumnDefinition MaxWidth="170" />
@@ -159,56 +160,55 @@
 										  Checked="SelectedMaterialCB_Checked"
 										  Unchecked="SelectedMaterialCB_Unchecked"/>
 
-								<TextBlock
-									Margin="0,0,10,0"
-									FontSize="16"
-									Text="{Binding MaterialType.MaterialTypeName}" />
+								<TextBlock Margin="0,0,10,0"
+									       FontSize="16"
+									       Text="{Binding MaterialType.MaterialTypeName}" />
 
-								<TextBlock
-									Margin="0,0,10,0"
-									FontSize="16"
-									Text="|" />
+								<TextBlock Margin="0,0,10,0"
+									       FontSize="16"
+									       Text="|" />
 
-								<TextBlock FontSize="16" Text="{Binding MaterialName}" />
+								<TextBlock FontSize="16" 
+								           Text="{Binding MaterialName}" />
 							</StackPanel>
 
-							<StackPanel
-								Grid.Column="1"
-								HorizontalAlignment="Right"
-								Orientation="Horizontal">
-								<TextBlock
-									Margin="0,0,5,0"
-									FontSize="14"
-									Text="{Binding CountInStock, StringFormat=Остаток: {0}}" />
+							<StackPanel Grid.Column="1"
+								        HorizontalAlignment="Right"
+								        Orientation="Horizontal">
+								<TextBlock Margin="0,0,5,0"
+									       FontSize="14"
+									       Text="{Binding CountInStock, StringFormat=Остаток: {0}}" />
 
-								<TextBlock FontSize="14" Text="{Binding UnitMeasure.UnitMeasureName}" />
+								<TextBlock FontSize="14" 
+								           Text="{Binding UnitMeasure.UnitMeasureName}" />
 							</StackPanel>
 
-							<StackPanel
-								Grid.Row="1"
-								HorizontalAlignment="Left"
-								Orientation="Horizontal">
-								<TextBlock
-									Margin="0,0,5,0"
-									FontSize="14"
-									Text="{Binding MinCount, StringFormat=Минимальное количество: {0}}" />
+							<StackPanel Grid.Row="1"
+								        HorizontalAlignment="Left"
+								        Orientation="Horizontal">
+								<TextBlock Margin="0,0,5,0"
+									       FontSize="14"
+									       Text="{Binding MinCount, StringFormat=Минимальное количество: {0}}" />
 
-								<TextBlock FontSize="14" Text="{Binding UnitMeasure.UnitMeasureName}" />
+								<TextBlock FontSize="14" 
+								           Text="{Binding UnitMeasure.UnitMeasureName}" />
 							</StackPanel>
 
-							<TextBlock
-								Grid.Row="2"
-								Width="300"
-								HorizontalAlignment="Left"
-								FontSize="14"
-								FontWeight="Bold"
-								TextWrapping="WrapWithOverflow">
+							<TextBlock Grid.Row="2"
+								       Width="300"
+								       HorizontalAlignment="Left"
+								       FontSize="14"
+								       FontWeight="Bold"
+								       TextWrapping="WrapWithOverflow">
 								<TextBlock.Style>
 									<Style TargetType="{x:Type TextBlock}">
-										<Setter Property="Text" Value="{Binding Supliers, StringFormat=Поставщики: {0}}" />
+										<Setter Property="Text" 
+										        Value="{Binding Supliers, StringFormat=Поставщики: {0}}" />
 										<Style.Triggers>
-											<DataTrigger Binding="{Binding Supliers}" Value="">
-												<Setter Property="Text" Value="Поставщики: отсутствуют" />
+											<DataTrigger Binding="{Binding Supliers}" 
+											             Value="">
+												<Setter Property="Text" 
+												        Value="Поставщики: отсутствуют" />
 											</DataTrigger>
 										</Style.Triggers>
 									</Style>
@@ -220,15 +220,22 @@
 			</ListView.ItemTemplate>
 			<ListView.ItemContainerStyle>
 				<Style TargetType="ListViewItem">
-					<Setter Property="Margin" Value="5" />
-					<Setter Property="Height" Value="Auto" />
-					<Setter Property="BorderBrush" Value="Black" />
+					<Setter Property="Margin" 
+					        Value="5" />
+					<Setter Property="Height" 
+					        Value="Auto" />
+					<Setter Property="BorderBrush" 
+					        Value="Black" />
 					<Style.Triggers>
-						<DataTrigger Binding="{Binding IsCurrentMinCount}" Value="1">
-							<Setter Property="Background" Value="#F19292" />
+						<DataTrigger Binding="{Binding IsCurrentMinCount}" 
+						             Value="1">
+							<Setter Property="Background" 
+							        Value="#F19292" />
 						</DataTrigger>
-						<DataTrigger Binding="{Binding IsCurrentMinCount}" Value="2">
-							<Setter Property="Background" Value="#FFBA01" />
+						<DataTrigger Binding="{Binding IsCurrentMinCount}" 
+						             Value="2">
+							<Setter Property="Background" 
+							        Value="#FFBA01" />
 						</DataTrigger>
 					</Style.Triggers>
 				</Style>
@@ -255,24 +262,22 @@
 					Click="EditMinCountBtn_Click" />
 		</DockPanel>
 		 
-		<ScrollViewer
-			Grid.Row="5"
-			Margin="10"
-			HorizontalScrollBarVisibility="Auto"
-			VerticalScrollBarVisibility="Hidden">
-			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-				<Button
-					x:Name="PrevBtn"
-					Width="40"
-					Height="25"
-					Click="PrevBtn_Click"
-					Content="&lt;"
-					IsEnabled="False" />
-				<ListView
-					x:Name="PageNumbersLV"
-					HorizontalAlignment="Stretch"
-					Background="Transparent"
-					BorderBrush="Transparent">
+		<ScrollViewer Grid.Row="5"
+			          Margin="10"
+			          HorizontalScrollBarVisibility="Auto"
+			          VerticalScrollBarVisibility="Hidden">
+			<StackPanel HorizontalAlignment="Right" 
+			            Orientation="Horizontal">
+				<Button x:Name="PrevBtn"
+					    Width="40"
+					    Height="25"
+					    Content="&lt;"
+						IsEnabled="False"
+						Click="PrevBtn_Click" />
+				<ListView x:Name="PageNumbersLV"
+					      HorizontalAlignment="Stretch"
+					      Background="Transparent"
+					      BorderBrush="Transparent">
 					<ListView.ItemsPanel>
 						<ItemsPanelTemplate>
 							<WrapPanel Orientation="Horizontal" />
@@ -281,13 +286,12 @@
 					<ListView.ItemTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
-								<Button
-									x:Name="GoPageBtn"
-									Margin="3"
-									Background="Transparent"
-									BorderBrush="Transparent"
-									Click="GoPageBtn_Click"
-									Content="{Binding Number}" />
+								<Button x:Name="GoPageBtn"
+									    Margin="3"
+									    Background="Transparent"
+									    BorderBrush="Transparent"
+										Content="{Binding Number}"
+										Click="GoPageBtn_Click" />
 							</StackPanel>
 						</DataTemplate>
 					</ListView.ItemTemplate>
@@ -300,8 +304,11 @@
 											<ContentPresenter />
 										</Border>
 										<ControlTemplate.Triggers>
-											<Trigger Property="IsSelected" Value="true">
-												<Setter TargetName="Border" Property="Background" Value="transparent" />
+											<Trigger Property="IsSelected" 
+											         Value="true">
+												<Setter TargetName="Border" 
+												        Property="Background" 
+														Value="Transparent" />
 											</Trigger>
 										</ControlTemplate.Triggers>
 									</ControlTemplate>
@@ -310,12 +317,12 @@
 						</Style>
 					</ListView.Resources>
 				</ListView>
-				<Button
-					x:Name="NextBtn"
-					Width="40"
-					Height="25"
-					Click="NextBtn_Click"
-					Content="&gt;" />
+
+				<Button x:Name="NextBtn"
+					    Width="40"
+					    Height="25"
+						Content="&gt;"
+						Click="NextBtn_Click" />
 			</StackPanel>
 		</ScrollViewer>
 	</Grid>
