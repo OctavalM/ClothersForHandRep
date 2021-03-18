@@ -103,13 +103,51 @@ namespace ClothersForHand.Pages
 		}
 
 		
-
 		private void AddSuplierBtn_Click(object sender, RoutedEventArgs e)
+		{
+			if (SupliersCB.SelectedIndex >= 0)
+			{
+				var suplierID = (SupliersCB.SelectedItem as Suplier).SuplierID;
+				var isSuplier = ClothersForHandDBEntities.GetContext().PossibleSupliersMaterial.Where(x => x.SuplierID == suplierID && x.MaterialID == contextMaterial.MaterialID).Count();
+
+				if (isSuplier == 0)
+				{
+					PossibleSupliersMaterial possibleSupliers = new PossibleSupliersMaterial();
+					possibleSupliers.MaterialID = contextMaterial.MaterialID;
+					possibleSupliers.SuplierID = suplierID;
+
+					ClothersForHandDBEntities.GetContext().PossibleSupliersMaterial.Add(possibleSupliers);
+					ClothersForHandDBEntities.GetContext().SaveChanges();
+
+					SupliersDG.ItemsSource = ClothersForHandDBEntities.GetContext().PossibleSupliersMaterial.Where(x => x.MaterialID == contextMaterial.MaterialID).ToList();
+				}
+			}
+			else
+				MessageBox.Show("Выберите поставщика для добавления.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+		}
+
+		private void DeleteSuplierBtn_Click(object sender, RoutedEventArgs e)
+		{
+			if (SupliersDG.SelectedItem != null)
+			{
+				var suplierID = (SupliersDG.SelectedItem as PossibleSupliersMaterial).SuplierID;
+				var removeSuplier = ClothersForHandDBEntities.GetContext().PossibleSupliersMaterial.Where(x => x.SuplierID == suplierID && x.MaterialID == contextMaterial.MaterialID).Single();
+
+				ClothersForHandDBEntities.GetContext().PossibleSupliersMaterial.Remove(removeSuplier);
+				ClothersForHandDBEntities.GetContext().SaveChanges();
+
+				SupliersDG.ItemsSource = ClothersForHandDBEntities.GetContext().PossibleSupliersMaterial.Where(x => x.MaterialID == contextMaterial.MaterialID).ToList();
+		    }
+			else
+				MessageBox.Show("Выберите поставщика для удаления.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+		}
+
+		private void DeleteBtn_Click(object sender, RoutedEventArgs e)
 		{
 
 		}
 
-		private void DeleteSuplierBtn_Click(object sender, RoutedEventArgs e)
+		private void AddSaveBtn_Click(object sender, RoutedEventArgs e)
 		{
 
 		}

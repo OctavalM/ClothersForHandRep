@@ -84,6 +84,8 @@ namespace ClothersForHand.Pages
 			{
 				AddEditMaterialPage addEditMaterialPage = new AddEditMaterialPage(selectedMaterial);
 				addEditMaterialPage.TitleTB.Text = "Редактирование материала";
+				addEditMaterialPage.AddSaveBtn.Content = "Сохранить";
+
 				NavigationService.Navigate(addEditMaterialPage);
 			}
 		}
@@ -114,6 +116,8 @@ namespace ClothersForHand.Pages
 		{
 			AddEditMaterialPage addEditMaterialPage = new AddEditMaterialPage(new Material());
 			addEditMaterialPage.TitleTB.Text = "Добавление материала";
+			addEditMaterialPage.AddSaveBtn.Content = "Добавить";
+
 			NavigationService.Navigate(addEditMaterialPage);
 		}
 

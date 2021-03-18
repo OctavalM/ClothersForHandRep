@@ -153,6 +153,19 @@
 								 VerticalContentAlignment="Top"
 								 PreviewTextInput="DescriptionTB_PreviewTextInput" />
 					</StackPanel>
+					<StackPanel Margin="15,10,0,10"
+								Orientation="Horizontal" HorizontalAlignment="Center">
+						<Button x:Name="DeleteBtn" 
+						        Content="Удалить" 
+								Height="25" 
+								Width="150" 
+								Click="DeleteBtn_Click" />
+
+						<Button x:Name="AddSaveBtn"  
+						        Height="25"
+								Width="150" 
+								Click="AddSaveBtn_Click" />
+					</StackPanel>
 				</StackPanel>
 
 				<StackPanel Grid.Column="1">
