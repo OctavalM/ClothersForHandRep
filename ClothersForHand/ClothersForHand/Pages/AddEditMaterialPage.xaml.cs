@@ -36,6 +36,8 @@ namespace ClothersForHand.Pages
 		{
 			MaterialTypeCB.ItemsSource = ClothersForHandDBEntities.GetContext().MaterialType.ToList();
 			UnitMeasureCB.ItemsSource = ClothersForHandDBEntities.GetContext().UnitMeasure.ToList();
+			SupliersDG.ItemsSource = ClothersForHandDBEntities.GetContext().PossibleSupliersMaterial.Where(x => x.MaterialID == contextMaterial.MaterialID).ToList();
+			SupliersCB.ItemsSource = ClothersForHandDBEntities.GetContext().Suplier.ToList();
 		}
 
 		private void MaterialNameTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -78,6 +80,14 @@ namespace ClothersForHand.Pages
 			}
 		}
 
+		private void DescriptionTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			if (!(Char.IsDigit(e.Text, 0) || e.Text == "." || e.Text == "," || Char.IsLetter(e.Text, 0)))
+			{
+				e.Handled = true;
+			}
+		}
+
 		private void LoadImageBtn_Click(object sender, RoutedEventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog()
@@ -90,6 +100,18 @@ namespace ClothersForHand.Pages
 				contextMaterial.Image = File.ReadAllBytes(dialog.FileName);
 				MaterialImg.Source = new BitmapImage(new Uri(dialog.FileName));
 			}
+		}
+
+		
+
+		private void AddSuplierBtn_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void DeleteSuplierBtn_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
