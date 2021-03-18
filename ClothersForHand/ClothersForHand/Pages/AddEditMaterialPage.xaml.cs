@@ -144,7 +144,22 @@ namespace ClothersForHand.Pages
 
 		private void DeleteBtn_Click(object sender, RoutedEventArgs e)
 		{
+			var deletedMaterial = ClothersForHandDBEntities.GetContext().Material.Where(x => x.MaterialID == contextMaterial.MaterialID).Single();
+			var deletedHistory = ClothersForHandDBEntities.GetContext().MaterialsChangeHistory.Where(x => x.MaterialID == contextMaterial.MaterialID).ToList();
 
+			if (deletedHistory != null)
+			{
+				foreach (var history in deletedHistory)
+				{
+					ClothersForHandDBEntities.GetContext().MaterialsChangeHistory.Remove(history);
+					ClothersForHandDBEntities.GetContext().SaveChanges();
+				}
+			}
+
+			ClothersForHandDBEntities.GetContext().Material.Remove(deletedMaterial);
+			ClothersForHandDBEntities.GetContext().SaveChanges();
+
+			NavigationService.Navigate(new MaterialsPage());
 		}
 
 		private void AddSaveBtn_Click(object sender, RoutedEventArgs e)
